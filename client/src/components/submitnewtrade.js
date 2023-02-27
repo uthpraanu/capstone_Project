@@ -2,6 +2,7 @@ import {ethers} from 'ethers';
 import {useState} from 'react';
 const Trader= ({state}) => {
     const [errorIT,seterror]=useState(false);
+    const [errorITName,setErrorITName] = useState("An Un-expected error has occured");
 
 const start=async (event)=>{
     event.preventDefault();
@@ -17,9 +18,19 @@ const start=async (event)=>{
     
     await transaction.wait();
     console.log(transaction);
+    setErrorITName("");
     }
-    catch(error)
+    catch(e)
     {
+        if(e.reason === "execution reverted: Please enter a value greater than 0"){
+            setErrorITName("You have enterned the amount zero, It's not allowed !!!");
+        }
+        else if(e.argument === "name"){
+            setErrorITName("You have enterned the wrong address of receiver, We can't peform this transaction");
+        }
+        else if(e.argument === "amountReceived"){
+            setErrorITName("You have enterned the amount less than zero, It's not allowed !!!");
+        }
         seterror(true);
     }
     //const id=await contract.getrecenttransaction();
@@ -36,8 +47,8 @@ return <>
         <button type='Submit'>Make a Trade</button>
     </form>
     {
-        errorIT?<h3>Sorry Your transaction has failed due to the following reasons <br></br>*You must have entered a wrong sender address <br></br>*you must have entered amount as string<br></br>*you must have entered amount smaller than or equalt to zero</h3>:null  
-        }
+        errorIT?<h1>{errorITName}</h1>:null  
+    }
     
 </>
 }

@@ -24,7 +24,7 @@ contract Trade{
 
     
     function createTrade(address sender, uint amountReceived) public  {
-        require(amountReceived != 0, "Please enter a value greater than 0");
+        require(amountReceived > 0, "Please enter a value greater than 0");
 
         TradeStruct memory t = TradeStruct({
             tradeId : tradeCounter,
