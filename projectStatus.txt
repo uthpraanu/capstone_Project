@@ -1,0 +1,1 @@
+21-02-2023 - 12:18 [The project was deployed properly and ran all basic test cases properly]
