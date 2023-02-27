@@ -3,6 +3,7 @@ import {useState} from 'react';
 const Trader= ({state}) => {
     const [errorIT,seterror]=useState(false);
     const [errorITName,setErrorITName] = useState("An Un-expected error has occured");
+    const [display, setDisplay] = useState("");
 
 const start=async (event)=>{
     event.preventDefault();
@@ -15,9 +16,12 @@ const start=async (event)=>{
     try
     {
     const transaction = await contract.createTrade(sendToAddress,sendAmount);
+    setDisplay("Please Wait");
     
     await transaction.wait();
-    console.log(transaction);
+    await console.log(transaction);
+    await seterror(false);
+    await setDisplay("Your transaction is sucessfull with tradeId : ");
     setErrorITName("");
     }
     catch(e)
@@ -47,7 +51,7 @@ return <>
         <button type='Submit'>Make a Trade</button>
     </form>
     {
-        errorIT?<h1>{errorITName}</h1>:null  
+        errorIT?<h1>{errorITName}</h1>:<h1>{display}</h1> 
     }
     
 </>

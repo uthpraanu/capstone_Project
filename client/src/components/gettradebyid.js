@@ -11,6 +11,7 @@ const GetAllTradeIT = ({state})=>{
 
         try{
             const arr = await contract.getTradeById(tradeID);
+            setMessageIT("Please Wait");
             const amt = [];
             amt.push(arr[0]._hex);
             amt.push("\t------\t");

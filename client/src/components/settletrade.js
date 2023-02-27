@@ -11,11 +11,12 @@ const SettleTrade = ({state})=>{
         const idValue = document.querySelector("#idValue").value;
 
         try{
+            setNormalDisplay("Please Wait");
             const transaction = await contract.settleTrade(idValue);
             await transaction.wait();
             setErrorOccured(false);
-            setNormalDisplay("Status updated Sucessfully");
-            console.log("Transactin finished");
+            await setNormalDisplay("Status updated Sucessfully");
+            await console.log("Transactin finished");
         }
         catch(error){
             if(error.reason === "execution reverted: Your enterd tradeId is not valid" || error.reason === "value out-of-bounds" || error.reason === "invalid BigNumber string"){
