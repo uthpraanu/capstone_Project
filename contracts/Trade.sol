@@ -58,9 +58,13 @@ contract Trade{
         timestamp = t.timestamp;
     }
 
-    function settleTrade(uint tradeIdReceivedSent) public{
-        tradeLedger[tradeIdReceivedSent].status = true; 
-        tradeRegistry[tradeIdReceivedSent-1]=tradeLedger[tradeIdReceivedSent];
+    function settleTrade(uint tradeIdReceived) public{
+        require(tradeIdReceived > 0, "Your enterd tradeId is not valid");
+        require(tradeIdReceived < tradeCounter, "Your enterd tradeId is not valid");
+        require(tradeLedger[tradeIdReceived].from == msg.sender, "You are not authorized to settle this trade");
+
+        tradeLedger[tradeIdReceived].status = true; 
+        tradeRegistry[tradeIdReceived-1]=tradeLedger[tradeIdReceived];
     }
     
     function listAllTrades() public view returns(TradeStruct[] memory)
