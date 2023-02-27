@@ -47,6 +47,8 @@ contract Trade{
                                                 uint amount,
                                                 bool status,
                                                 uint timestamp){
+        require(tradeIdReceived > 0, "Your enterd tradeId is not valid");
+        require(tradeIdReceived < tradeCounter, "Your enterd tradeId is not valid");
         TradeStruct memory t = tradeLedger[tradeIdReceived];
         tradeId = t.tradeId;
         from = t.from;

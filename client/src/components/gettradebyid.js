@@ -2,33 +2,40 @@ import { useState} from 'react';
 
 const GetAllTradeIT = ({state})=>{
     const [s,sUse] = useState([]);
-
+    const [executedProperly,setExecutedProperly] = useState(false);
+    const [messageIT, setMessageIT] = useState("");
     const getTradeDetails = async (event)=>{
         event.preventDefault();
         const {contract} = state;
         const tradeID = document.querySelector("#tradeId").value;
 
-        const arr = await contract.getTradeById(tradeID);
-        const amt = [];
-        amt.push(arr[0]._hex);
-        amt.push("\t------\t");
-        amt.push(arr[1]);
-        amt.push("\t------\t");
-        amt.push(arr[2]);
-        amt.push("\t------\t");
-        amt.push(parseInt(arr[3]._hex));
-        amt.push("\t------\t");
-        if(arr[4] === false){
-            amt.push("NOT Settled");
+        try{
+            const arr = await contract.getTradeById(tradeID);
+            const amt = [];
+            amt.push(arr[0]._hex);
+            amt.push("\t------\t");
+            amt.push(arr[1]);
+            amt.push("\t------\t");
+            amt.push(arr[2]);
+            amt.push("\t------\t");
+            amt.push(parseInt(arr[3]._hex));
+            amt.push("\t------\t");
+            if(arr[4] === false){
+                amt.push("NOT Settled");
+            }
+            else{
+                amt.push("Settled");
+            }
+            amt.push("\t------\t");
+            amt.push(parseInt(arr[5]._hex));
+            amt.push("\t------\t");
+            sUse(amt);
+            setExecutedProperly(true);
         }
-        else{
-            amt.push("Settled");
+        catch(error){
+            setExecutedProperly(false);
+            setMessageIT("Your enterd tradeId is not valid");
         }
-        amt.push("\t------\t");
-        amt.push(parseInt(arr[5]._hex));
-        amt.push("\t------\t");
-        sUse(amt);
-        
     }
 
   
@@ -42,9 +49,9 @@ const GetAllTradeIT = ({state})=>{
         <h3>Trade Details</h3>
         <h5>TradeID------------------------------------Sender------------------------------------------------------------------------------------Receiver---------------------------------------------Amount--------Status-------------TimeStamp------------------</h5>      
             <div>
-                {s.map((item)=>{
+                {executedProperly?s.map((item)=>{
                     return(item)
-                })}
+                }):<h1>{messageIT}</h1>}
                 
             </div>
     </div>);
