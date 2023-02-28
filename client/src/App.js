@@ -1,10 +1,10 @@
 import abi from './contract/Trade.json';
 import {useState,useEffect} from 'react';
 import {ethers} from 'ethers';
-import Newtrade from './components/submitnewtrade';
-import Getalltrade from './components/getalltrade';
-import Gettradebyid from './components/gettradebyid';
-import Settle from './components/settletrade';
+import FreshTrade from './components/createTrade';
+import GetTradeList from './components/getTradeList';
+import GetTradeById from './components/getTradeById';
+import SettleTrade from './components/settleTrade';
 
 function App() {
   const [state,setState]=useState(
@@ -48,16 +48,16 @@ connectwallet();
     <>
       <hr></hr>
       <hr></hr>
-      <Newtrade state={state}></Newtrade>
+      <FreshTrade state={state}></FreshTrade>
       <hr></hr>
       <hr></hr>
-      <Gettradebyid state={state}></Gettradebyid>
+      <GetTradeById state={state}></GetTradeById>
       <hr></hr>
       <hr></hr>
-      <Settle state={state}></Settle>
+      <SettleTrade state={state}></SettleTrade>
       <hr></hr>
       <hr></hr>
-      <Getalltrade state={state}></Getalltrade>
+      <GetTradeList state={state}></GetTradeList>
       <hr></hr>
       <hr></hr>
     </>
