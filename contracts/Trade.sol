@@ -23,7 +23,7 @@ contract Trade{
     }
 
     
-    function createTrade(address sender, uint amountReceived) public  {
+    function createTrade(address sender, uint amountReceived) public {
         require(amountReceived > 0, "Please enter a value greater than 0");
 
         TradeStruct memory t = TradeStruct({
@@ -37,10 +37,12 @@ contract Trade{
         tradeLedger[tradeCounter] =t;
         tradeRegistry.push(t);
         tradeCounter += 1;
-       
     }
 
-    
+    function retrunLatest() public view returns(uint send){
+        send = tradeCounter - 1;
+    }
+
     function getTradeById(uint tradeIdReceived) public view returns(uint tradeId, 
                                                 address from, 
                                                 address to,

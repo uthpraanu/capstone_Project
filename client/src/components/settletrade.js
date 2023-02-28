@@ -16,7 +16,7 @@ const SettleTrade = ({state})=>{
         try{
             setErrorOccured(false);
             setStyleIT(({
-                color : "yellow"
+                color : "#FFCC00"
             }));
             setNormalDisplay("Please Wait");
             const transaction = await contract.settleTrade(idValue);
@@ -24,7 +24,7 @@ const SettleTrade = ({state})=>{
             setErrorOccured(false);
             await setNormalDisplay("Status updated Sucessfully");
             await setStyleIT(({
-                color : "green"
+                color : "#006400"
             }));
             await console.log("Transactin finished");
         }

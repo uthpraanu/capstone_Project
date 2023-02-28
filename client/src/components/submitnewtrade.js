@@ -6,7 +6,7 @@ const Trader= ({state}) => {
     const [errorITName,setErrorITName] = useState("An Un-expected error has occured");
     const [display, setDisplay] = useState("");
     const [styleIT,setStyleIT] = useState({
-        color : "yellow"
+        color : "#FFCC00"
     });
 
 const start=async (event)=>{
@@ -22,18 +22,22 @@ const start=async (event)=>{
     seterror(false);
     const transaction = await contract.createTrade(sendToAddress,sendAmount);
     setStyleIT(({
-        color : "yellow"
+        color : "#FFCC00"
     }));
     setDisplay("Please Wait");
-    
     await transaction.wait();
-    await console.log(transaction);
+    await console.log(transaction.argument);
     await seterror(false);
-    await setDisplay("Your transaction is sucessfull with tradeId : ");
+    // await setDisplay("Your transaction is sucessfull with tradeId : ");
     await setStyleIT(({
-        color : "green"
+        color : "#006400"
     }));
     setErrorITName("");
+    //------------------------------------------------------------------------
+    const transaction2 = await contract.retrunLatest();
+    await console.log(transaction2);
+    const value = await parseInt(transaction2._hex);
+    await setDisplay(`Your transaction is sucessfull with tradeId : ${value}`);
     }
     catch(e)
     {

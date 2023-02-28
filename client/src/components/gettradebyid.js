@@ -5,7 +5,7 @@ const GetAllTradeIT = ({state})=>{
     const [executedProperly,setExecutedProperly] = useState(false);
     const [messageIT, setMessageIT] = useState("");
     const [styleIT,setStyleIT] = useState({
-        color : "yellow"
+        color : "#FFCC00"
     });
 
     const getTradeDetails = async (event)=>{
@@ -17,7 +17,7 @@ const GetAllTradeIT = ({state})=>{
             setExecutedProperly(true);
             const arr = await contract.getTradeById(tradeID);
             setStyleIT(({
-                color : "yellow"
+                color : "#FFCC00"
             }));
             setMessageIT("Please Wait");
             const amt = [];
@@ -41,7 +41,7 @@ const GetAllTradeIT = ({state})=>{
             sUse(amt);
             setExecutedProperly(true);
             setStyleIT(({
-                color : "green"
+                color : "#006400"
             }));
         }
         catch(error){
