@@ -70,8 +70,7 @@ const GetAllTradeIT = ({state})=>{
             <div>
                 {s.map((item)=>{
                     return item;
-                })}
-                
+                })}      
             </div>
     </div>);
 }

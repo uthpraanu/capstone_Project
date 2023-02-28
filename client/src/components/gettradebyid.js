@@ -4,13 +4,21 @@ const GetAllTradeIT = ({state})=>{
     const [s,sUse] = useState([]);
     const [executedProperly,setExecutedProperly] = useState(false);
     const [messageIT, setMessageIT] = useState("");
+    const [styleIT,setStyleIT] = useState({
+        color : "yellow"
+    });
+
     const getTradeDetails = async (event)=>{
         event.preventDefault();
         const {contract} = state;
         const tradeID = document.querySelector("#tradeId").value;
 
         try{
+            setExecutedProperly(true);
             const arr = await contract.getTradeById(tradeID);
+            setStyleIT(({
+                color : "yellow"
+            }));
             setMessageIT("Please Wait");
             const amt = [];
             amt.push(arr[0]._hex);
@@ -32,8 +40,14 @@ const GetAllTradeIT = ({state})=>{
             amt.push("\t------\t");
             sUse(amt);
             setExecutedProperly(true);
+            setStyleIT(({
+                color : "green"
+            }));
         }
         catch(error){
+            setStyleIT(({
+                color : "red"
+            }));
             setExecutedProperly(false);
             setMessageIT("Your enterd tradeId is not valid");
         }
@@ -52,7 +66,7 @@ const GetAllTradeIT = ({state})=>{
             <div>
                 {executedProperly?s.map((item)=>{
                     return(item)
-                }):<h1>{messageIT}</h1>}
+                }):<h1 style = {styleIT}>{messageIT}</h1>}
                 
             </div>
     </div>);
